@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Plateforme de blog collaboratif multi-auteurs avec gestion avancée des rôles et des commentaires en temps réel (MEAN Stack)",
   "main": "index.js",
-  "scripts": {  
+  "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js"
   },
@@ -31,6 +31,7 @@
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.17.0",
+    "multer": "^2.0.2",
     "socket.io": "^4.8.1"
   },
   "devDependencies": {

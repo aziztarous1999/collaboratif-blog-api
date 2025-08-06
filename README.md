@@ -27,7 +27,28 @@ Implemented and documented via Postman:
 - **POST `/api/auth/login`**
   Authenticates a user and returns a JWT access token and refresh token.
 
-📄 View full API documentation on [Postman](https://www.postman.com/aziz-tarous-dev/collab-blog-api-docs/collection/93rg6eq/auth?action=share&creator=13760370)
+📄 View full API documentation on [Postman Auth Collection](https://www.postman.com/aziz-tarous-dev/collab-blog-api-docs/collection/93rg6eq/auth?action=share&creator=13760370)
+
+## 📝 Article Endpoints
+
+Manage blog articles with full CRUD operations and role-based access:
+
+- **POST `/api/articles`**  
+  Create a new article (requires Writer or higher role).
+
+- **GET `/api/articles`**  
+  Fetch all published articles.
+
+- **GET `/api/articles/:id`**  
+  Retrieve a specific article by ID.
+
+- **PUT `/api/articles/:id`**  
+  Update an article (Editor or Admin only).
+
+- **DELETE `/api/articles/:id`**  
+  Delete an article (Admin only).
+
+📄 View full Article API documentation on [Postman Article Collection](https://www.postman.com/aziz-tarous-dev/collab-blog-api-docs/collection/oypsd80/article?action=share&source=copy-link&creator=13760370)
 
 ## 🛠️ Installation
 
@@ -63,6 +84,7 @@ collab-blog-api/
 | ├── models/
 | ├── routes/
 | ├── middleware/
+| ├── uploads/
 | └── utils/
 ├── app.js
 ├── server.js
@@ -79,4 +101,4 @@ collab-blog-api/
 ## 🧪 Testing
 
 Use Postman or your preferred tool to test endpoints.
-Authentication collection: [Postman Auth Collection](https://www.postman.com/aziz-tarous-dev/collab-blog-api-docs/collection/93rg6eq/auth?action=share&creator=13760370)
+collection: [Postman](https://www.postman.com/aziz-tarous-dev/collab-blog-api-docs)
