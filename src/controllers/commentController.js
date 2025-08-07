@@ -14,15 +14,15 @@ exports.postComment = async (req, res) => {
     });
 
     const populated = await comment.populate('author', 'username');
-    /*
-    req.io.to(article.author.toString()).emit('new-comment', {
-      articleId, comment: populated
+    req.io.to(article.author._id.toString()).emit('new-comment', {
+      articleId,
+      comment: populated,
+      message: `New comment on your article "${article.title}" by ${populated.author.username}`
     });
-    */
 
     res.status(201).json(populated);
   } catch (err) {
-    
+    console.error(err);
     res.status(500).json({ error: 'Failed to post comment' });
   }
 };
@@ -53,21 +53,16 @@ function buildTree(comments) {
   });
   return roots;
 }
-
 exports.deleteComment = async (req, res) => {
   try {
     const commentId = req.params.id;
     if (req.user.role !== 'admin') {
       return res.status(403).json({ error: 'Not authorized to delete this comment' });
     }
-
-    // Find the comment to delete
     const comment = await Comment.findById(commentId);
     if (!comment) {
       return res.status(404).json({ error: 'Comment not found' });
     }
-
-    // Delete comment and all its nested replies
     await deleteCommentAndChildren(commentId);
 
     res.status(200).json({ message: 'Comment and replies deleted successfully' });
