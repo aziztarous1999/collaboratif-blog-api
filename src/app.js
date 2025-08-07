@@ -6,6 +6,7 @@ function createApp(getIO) {
     const authRoutes = require('./routes/authRoutes');
     const articleRoutes = require('./routes/articleRoutes');
     const commentRoutes = require('./routes/commentRoutes');
+    const analyticsRoutes = require('./routes/analyticsRoutes');
     const path = require('path');
   
     const app = express();
@@ -21,7 +22,7 @@ function createApp(getIO) {
     app.use('/api/auth', authRoutes);
     app.use('/api/articles', articleRoutes);
     app.use('/api/comments', commentRoutes);
-  
+    app.use('/api/analytics', analyticsRoutes);
     return app;
   }
   
