@@ -98,6 +98,10 @@ collab-blog-api/
 - Replies are nested.
 - Article authors receive live notifications via WebSockets.
 
+## 🚀 Envirement Version
+
+- **Node.js**: 22.18.0
+
 ## 🧪 Testing
 
 Use Postman or your preferred tool to test endpoints.
