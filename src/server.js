@@ -13,7 +13,13 @@ mongoose.connect(process.env.MONGODB_URI)
   })
   .catch(err => console.error(err));
 
-// Socket setup example
-io.on('connection', (socket) => {
-  console.log('User connected:', socket.id);
-});
+  app.use((req, res, next) => {
+    req.io = io;
+    next();
+  });
+  
+  io.on('connection', socket => {
+    socket.on('join-article', articleAuthorId => {
+      socket.join(articleAuthorId);
+    });
+  });

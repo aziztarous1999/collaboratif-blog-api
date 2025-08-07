@@ -15,8 +15,8 @@ exports.register = async (req, res) => {
         return res.status(400).json({ error: 'Email must be at least 8 characters long.' });
     } else if (!emailRegex.test(email)) {
         return res.status(400).json({ error: 'Email format is invalid.' });
-    } else if (!password || password.length < 4) {
-        return res.status(400).json({ error: 'Password must be at least 4 characters long.' });
+    } else if (!password || password.length < 8) {
+        return res.status(400).json({ error: 'Password must be at least 8 characters long.' });
     }
     const hashedPassword = await bcrypt.hash(password, 12);
     const user = await User.create({ username, email, password: hashedPassword });
@@ -44,5 +44,29 @@ exports.login = async (req, res) => {
     res.json({ token, refreshToken });
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+};
+
+exports.refresh = async (req, res) => {
+  try {
+    console.log("in")
+    const { refreshToken } = req.body;
+    if (!refreshToken) {
+      return res.status(401).json({ error: 'Refresh token required' });
+    }
+
+    const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+
+    const user = await User.findById(decoded.id);
+
+    const newAccessToken = generateToken(user);
+    const newRefreshToken = generateRefreshToken(user);
+
+    user.refreshToken = newRefreshToken;
+    await user.save();
+
+    res.json({ token: newAccessToken, refreshToken: newRefreshToken });
+  } catch (err) {
+    return res.status(401).json({ error: 'Token expired or invalid' });
   }
 };
